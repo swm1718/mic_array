@@ -1,7 +1,10 @@
 
 
 import pyaudio
-import Queue
+try:
+    import queue as Queue
+except ImportError:
+    import Queue as Queue
 import threading
 import numpy as np
 from gcc_phat import gcc_phat
