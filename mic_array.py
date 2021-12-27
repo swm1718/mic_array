@@ -1,5 +1,5 @@
 
-
+import argparse
 import pyaudio
 try:
     import queue as Queue
@@ -189,5 +189,12 @@ def test_8mic():
 
 
 if __name__ == '__main__':
-    # test_4mic()
-    test_8mic()
+    parser = argparse.ArgumentParser(description='Specify the number of mics in the array, either 4 or 8 (default 8).')
+    parser.add_argument('--num_mics', type=int, choices=[4, 8], default=8)
+
+    num_mics = parser.parse_args().num_mics
+
+    if num_mics == 4:
+        test_4mic()
+    else:
+        test_8mic()
