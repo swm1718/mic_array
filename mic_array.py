@@ -147,6 +147,9 @@ def test_4mic():
     import time
     from pixel_ring_4mic import pixels
 
+    pixels.wakeup()
+    time.sleep(3)
+    
     is_quit = threading.Event()
 
     def signal_handler(sig, num):
@@ -159,6 +162,7 @@ def test_4mic():
         for chunk in mic.read_chunks():
             direction = mic.get_direction(chunk)
             pixels.set_direction(direction)
+            pixels.listen()
             print(int(direction))
 
             if is_quit.is_set():
