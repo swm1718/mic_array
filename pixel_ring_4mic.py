@@ -1,4 +1,4 @@
-# Adapted from in https://github.com/respeaker/4mics_hat/blob/master/interfaces/pixels.py
+# Adapted from https://github.com/respeaker/4mics_hat/blob/master/interfaces/pixels.py
 
 import apa102
 import time
@@ -9,10 +9,12 @@ try:
 except ImportError:
     import Queue as Queue
 
+from doa_led_pattern import DOALEDPattern
+    
 class Pixels:
     PIXELS_N = 12
 
-    def __init__(self, pattern=AlexaLedPattern):
+    def __init__(self, pattern=DOALEDPattern):
         self.pattern = pattern(show=self.show)
 
         self.dev = apa102.APA102(num_led=self.PIXELS_N)
@@ -47,6 +49,9 @@ class Pixels:
 
     def speak(self):
         self.put(self.pattern.speak)
+        
+    def set_direction(self, direction):
+        self.last_direction = direction
 
     def off(self):
         self.put(self.pattern.off)
@@ -72,17 +77,16 @@ pixels = Pixels()
 
 
 if __name__ == '__main__':
+    
+    try:
+        pixels.wakeup()
+        time.sleep(3)
+        
     while True:
 
         try:
-            pixels.wakeup()
-            time.sleep(3)
-            pixels.think()
-            time.sleep(3)
-            pixels.speak()
-            time.sleep(6)
-            pixels.off()
-            time.sleep(3)
+            pixels.listen()
+            time.sleep(1)
         except KeyboardInterrupt:
             break
 
