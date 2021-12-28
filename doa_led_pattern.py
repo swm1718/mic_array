@@ -28,11 +28,9 @@ class DOALEDPattern(object):
         
         pixels = [0, 0, 0, 24] * self.pixels_number
         pixels[position * 4 + 2] = 48
-        pixels[(position-1)%self.pixels_number * 4 + 2] = 24
-        pixels[(position+1)%self.pixels_number * 4 + 2] = 24
+        pixels[(position-1)%self.pixels_number * 4 + 2] = 12
+        pixels[(position+1)%self.pixels_number * 4 + 2] = 12
         
-        print(pixels)
-
         self.show(pixels)
 
 #     def think(self):
