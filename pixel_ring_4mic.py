@@ -80,13 +80,13 @@ pixels = Pixels()
 
 if __name__ == '__main__':
     
-    try:
-        pixels.wakeup()
-        time.sleep(3)
+    pixels.wakeup()
+    time.sleep(3)
         
     while True:
 
         try:
+            print("looping")
             pixels.listen()
             time.sleep(1)
         except KeyboardInterrupt:
