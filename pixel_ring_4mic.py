@@ -37,14 +37,14 @@ class Pixels:
         self.put(f)
 
     def listen(self):
-        if self.last_direction:
-            def f():
-                self.pattern.wakeup(self.last_direction)
-            self.put(f)
-        else:
-            def f():
-                self.pattern.listen(self.last_direction)
-            self.put(f)
+#         if self.last_direction:
+#             def f():
+#                 self.pattern.wakeup(self.last_direction)
+#             self.put(f)
+#         else:
+        def f():
+            self.pattern.listen(self.last_direction)
+        self.put(f)
 
     def think(self):
         self.put(self.pattern.think)
