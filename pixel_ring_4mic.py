@@ -42,7 +42,9 @@ class Pixels:
                 self.pattern.wakeup(self.last_direction)
             self.put(f)
         else:
-            self.put(self.pattern.listen)
+            def f():
+                self.pattern.listen(self.last_direction)
+            self.put(f)
 
     def think(self):
         self.put(self.pattern.think)
