@@ -76,22 +76,3 @@ class Pixels:
 
 
 pixels = Pixels()
-
-
-if __name__ == '__main__':
-    
-    pixels.wakeup()
-    time.sleep(3)
-        
-    while True:
-
-        try:
-            print("looping")
-            pixels.listen()
-            time.sleep(1)
-        except KeyboardInterrupt:
-            break
-
-
-    pixels.off()
-    time.sleep(1)
