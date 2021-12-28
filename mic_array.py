@@ -161,7 +161,7 @@ def test_4mic():
     with MicArray(16000, 4, 16000 / 4)  as mic:
         for chunk in mic.read_chunks():
             direction = mic.get_direction(chunk)
-            pixels.set_direction(direction)
+            pixels.set_direction((direction+180)%360)
             pixels.listen()
             print(int(direction))
 
