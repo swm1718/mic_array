@@ -18,15 +18,15 @@ class DOALEDPattern(object):
     def wakeup(self, direction=0):
         position = int((direction + 15) / (360 / self.pixels_number)) % self.pixels_number
 
-        pixels = [0, 0, 0, 24] * self.pixels_number
-        pixels[position * 4 + 2] = 48
+        pixels = [0, 24, 0, 24, 0, 0, 24, 0] * (self.pixels_number/2)
+        #pixels[position * 4 + 2] = 48
 
         self.show(pixels)
 
     def listen(self, direction=0):
         position = int((direction + 15) / (360 / self.pixels_number)) % self.pixels_number
         
-        pixels = [0, 0, 0, 24] * self.pixels_number
+        pixels = [0, 0, 0, 0] * self.pixels_number
         pixels[position * 4 + 2] = 48
         pixels[(position-1)%self.pixels_number * 4 + 2] = 12
         pixels[(position+1)%self.pixels_number * 4 + 2] = 12
