@@ -41,7 +41,7 @@ class DOALEDPattern(object):
         #pixels[(position+1)%self.pixels_number * 4 + 2] = 12
         
         # For Von Mises distribution round circle
-        self.rv = vonmises(kappa, loc=self.direction*math.pi/180)
+        self.rv = vonmises(self.kappa, loc=self.direction*math.pi/180)
         self.mic_vals = [self.rv.pdf(i) for i in self.mic_pos]
         for i, v in enumerate(self.mic_vals):
             pixels[i*4 + 2] = round(36*v)
