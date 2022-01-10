@@ -1,12 +1,21 @@
 # Adapted from alexa_led_pattern.py at https://github.com/respeaker/4mics_hat/blob/master/interfaces/alexa_led_pattern.py
 
 import time
+import math
+import numpy as np
+from scipy.stats import vonmises
 
 class DOALEDPattern(object):
     def __init__(self, show=None, number=12):
         self.pixels_number = number
         self.pixels = [0] * 4 * number
-
+        
+        # For Von Mises distribution
+        self.kappa = 10
+        self.rv = vonmises(self.kappa, loc=0)
+        self.mic_pos = [-math.pi + 2*math.pi*i/12 for i in range(12)]
+        self.mic_vals = [self.rv.pdf(i) for i in self.mic_pos]
+        
         if not show or not callable(show):
             def dummy(data):
                 pass
@@ -24,12 +33,18 @@ class DOALEDPattern(object):
         self.show(pixels)
 
     def listen(self, direction=0):
-        position = int((direction + 15) / (360 / self.pixels_number)) % self.pixels_number
+        #position = int((direction + 15) / (360 / self.pixels_number)) % self.pixels_number
         
         pixels = [0, 0, 0, 0] * self.pixels_number
-        pixels[position * 4 + 2] = 48
-        pixels[(position-1)%self.pixels_number * 4 + 2] = 12
-        pixels[(position+1)%self.pixels_number * 4 + 2] = 12
+        #pixels[position * 4 + 2] = 48
+        #pixels[(position-1)%self.pixels_number * 4 + 2] = 12
+        #pixels[(position+1)%self.pixels_number * 4 + 2] = 12
+        
+        # For Von Mises distribution round circle
+        self.rv = vonmises(kappa, loc=self.direction*math.pi/180)
+        self.mic_vals = [self.rv.pdf(i) for i in self.mic_pos]
+        for i, v in enumerate(self.mic_vals):
+            pixels[i*4 + 2] = round(36*v)
         
         self.show(pixels)
 
