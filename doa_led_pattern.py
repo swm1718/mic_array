@@ -41,8 +41,8 @@ class DOALEDPattern(object):
         #pixels[(position+1)%self.pixels_number * 4 + 2] = 12
         
         # For Von Mises distribution round circle
-        # Note direction-180 as direction runs from [0, 360) whereas loc is mean [-pi, pi)
-        self.rv = vonmises(self.kappa, loc=(direction-180)*math.pi/180)
+        # Note direction-180 as direction runs from [0, 360) whereas loc is mean [-pi, pi), then +15 from visual inspection of results
+        self.rv = vonmises(self.kappa, loc=(direction-180+15)*math.pi/180)
         self.mic_vals = [self.rv.pdf(i) for i in self.mic_pos]
         for i, v in enumerate(self.mic_vals):
             pixels[i*4 + 2] = round(36*v)
